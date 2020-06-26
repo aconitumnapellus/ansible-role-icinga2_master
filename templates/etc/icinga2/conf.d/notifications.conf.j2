@@ -26,6 +26,21 @@ apply Notification "mail-icingaadmin" to Host {
   assign where host.vars.sla == "mailonly"
 }
 
+apply Notification "mail-setup" to Service {
+  // import "mail-service-notification"
+
+  interval = 0 // disable re-notification
+
+  assign where host.vars.sla == "setup"
+}
+apply Notification "mail-setup" to Host {
+  // import "mail-host-notification"
+
+  interval = 0 // disable re-notification
+
+  assign where host.vars.sla == "setup"
+}
+
 {% if icinga2_master_twilio_sms_enabled|bool == true %}
 # SMS Premium Pikett 1
 apply Notification "sms-premium-1st-level" to Host {
